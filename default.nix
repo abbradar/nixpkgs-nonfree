@@ -20,7 +20,7 @@ let
       ut2004-gog = self.callPackage ./games/ut2004/gog.nix { };
     };
 
-    #ut2004 = pkgs.ut2004Packages.ut2004 (with self.ut2004Packages; [ ut2004-gog ut2004-megapack ]);
+    ut2004-gog = pkgs.ut2004Packages.ut2004 (with self.ut2004Packages; [ ut2004-gog ut2004-megapack ]);
     ut2004 = pkgs.ut2004Packages.ut2004 (with self.ut2004Packages; [ ut2004-megapack ]);
   };
 
