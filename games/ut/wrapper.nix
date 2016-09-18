@@ -38,7 +38,7 @@ in runCommand "ut" {
   # patchelf breaks Core.so
   for i in ${game}/System/*-bin; do
     name="$(basename "$i")"
-    makeWrapper "$i" "$out/bin/$name" \
+    makeWrapper "$i" "$out/bin/''${name%-bin}" \
       --run "cd ${game}/System" \
       --prefix LD_LIBRARY_PATH : ${libPath} \
       --prefix LD_PRELOAD : ${libpulseaudio}/lib/pulseaudio/libpulsedsp.so
