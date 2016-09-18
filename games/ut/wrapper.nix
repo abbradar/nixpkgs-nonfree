@@ -1,7 +1,7 @@
-{ stdenv, lib, runCommand, buildEnv, makeWrapper, makeDesktopItem, gamePacks, SDL_1_1, libmikmod_3_1, openal }:
+{ stdenv, lib, runCommand, buildEnv, makeWrapper, makeDesktopItem, gamePacks, SDL_1_1, libpulseaudio }:
 
 let
-  libPath = lib.makeLibraryPath [ SDL_1_1 libmikmod_3_1 ];
+  libPath = lib.makeLibraryPath [ SDL_1_1 ];
 
   game = buildEnv {
     name = "ut-game";
@@ -9,8 +9,6 @@ let
     ignoreCollisions = true;
     pathsToLink = [ "/" "/System" ];
     postBuild = ''
-      ln -s ${openal}/lib/libopenal.so.1 $out/System/libopenal-0.0.so
-
       for i in $out/System/*-bin; do
         path="$(readlink -f "$i")"
         rm "$i"
@@ -42,7 +40,8 @@ in runCommand "ut" {
     name="$(basename "$i")"
     makeWrapper "$i" "$out/bin/$name" \
       --run "cd ${game}/System" \
-      --prefix LD_LIBRARY_PATH : ${libPath}
+      --prefix LD_LIBRARY_PATH : ${libPath} \
+      --prefix LD_PRELOAD : ${libpulseaudio}/lib/pulseaudio/libpulsedsp.so
   done
 
   mkdir -p $out/share/applications $out/share/icons/hicolor/48x48/apps

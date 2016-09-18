@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
       tar -xaf "$i" -C $out
     done
 
-    rm $out/System/lib*
+    rm $out/System/libSDL*
 
     cp ut.xpm $out
   '';

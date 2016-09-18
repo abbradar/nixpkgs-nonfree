@@ -28,8 +28,6 @@ let
 
       SDL_1_1 = self.callPackage ./development/libraries/SDL/1.1.nix { };
 
-      libmikmod_3_1 = self.callPackage ./development/libraries/libmikmod/3.1.nix { };
-
       utPackages = {
         ut-goty = self.callPackage ./games/ut/goty.nix { };
 
