@@ -12,7 +12,7 @@ let
       binkplayer = self.callPackage_i686 ./applications/video/binkplayer { };
 
       nwn = self.callPackage ./games/nwn {
-        inherit (pkgs.pkgsi686Linux) libX11 libXcursor;
+        inherit (pkgs.pkgsi686Linux.xorg) libX11 libXcursor;
         inherit (pkgs.pkgsi686Linux) libelf SDL SDL_gfx mesa_glu;
         stdenv = pkgs.stdenv_32bit;
       };
