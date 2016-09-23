@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
     mkdir $out
     cp -r app/* $out
-    rm app/System/*.{exe,dll}
+    find $out \( -name \*.dll -o -name \*.exe \) -delete
   '';
 
   nativeBuildInputs = [ innoextract ];

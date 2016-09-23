@@ -74,16 +74,13 @@ popd
 # Remove Unneeded Files & Directories
 rm -r \
   $out/nwn/SDL-* \
-  $out/nwn/*.dll \
-  $out/nwn/*.exe \
   $out/nwn/ereg \
   $out/nwn/utils \
   $out/nwn/lib \
-  $out/nwn/premium/*.exe \
-  $out/nwn/miles/*.dll \
   $out/nwn/fixinstall \
   $out/nwn/nwn \
   $out/nwn/dmclient
+find $out \( -name \*.dll -o -name \*.exe \) -delete
 
 # Install nwmovies Perl script
 install -D -m755 nwmovies/nwmovies.pl $out/nwn/nwmovies.pl
