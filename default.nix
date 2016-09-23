@@ -31,9 +31,12 @@ let
       utPackages = {
         ut-goty = self.callPackage ./games/ut/goty.nix { };
 
+        ut-goty-gog = self.callPackage ./games/ut/gog.nix { };
+
         ut = gamePacks: self.callPackage_i686 ./games/ut/wrapper.nix { inherit gamePacks; };
       };
 
+      ut-gog = self.utPackages.ut (with self.utPackages; [ ut-goty-gog ut-goty ]);
       ut = self.utPackages.ut (with self.utPackages; [ ut-goty ]);
     };
 
