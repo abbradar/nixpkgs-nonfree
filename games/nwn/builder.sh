@@ -33,6 +33,7 @@ nwcompile() {
     -e "s|^\$machine = .*|\$machine = \"$system\";|" \
     -e "s|-I/|-I/does-not-exist/|g" \
     -e "s|-L/|-L/does-not-exist/|g" \
+    -e "s|-Wl,-static||g" \
     ./$1_install.pl
   find -name \*.so -delete
   ./$1_install.pl build
