@@ -38,6 +38,12 @@ let
 
       ut-gog = self.utPackages.ut (with self.utPackages; [ ut-goty-gog ut-goty ]);
       ut = self.utPackages.ut (with self.utPackages; [ ut-goty ]);
+
+      quake3Packages = {
+        quake3-gog = self.callPackage ./games/quake3/gog.nix { };
+      };
+
+      quake3-gog = pkgs.quake3wrapper { paks = [ self.quake3Packages.quake3-gog pkgs.quake3pointrelease ]; };
     };
 
     result = lib.fix core;
