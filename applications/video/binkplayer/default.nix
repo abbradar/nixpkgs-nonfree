@@ -9,7 +9,7 @@ in stdenv.mkDerivation {
   src = requireFile {
     url = "http://www.radgametools.com/down/Bink/BinkLinuxPlayer.7z";
     name = "BinkLinuxPlayer.7z";
-    sha256 = "04pa2bad81hw5nx6a5zh6ab0rmcdwfqh3ifh5n7fbly90hm9vfwh";
+    sha256 = "1dqr36v9l3hk4w6k4x7dzv1w6p9x0v27b0s30sl0i47frfyww7cr";
   };
 
   buildCommand = ''
