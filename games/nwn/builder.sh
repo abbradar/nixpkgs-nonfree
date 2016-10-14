@@ -144,6 +144,13 @@ exec ./nwserver \"\$@\"
 EOF
 chmod +x $out/bin/nwserver
 
+cat >$out/bin/dmclient <<EOF
+#!$SHELL
+cd $out/nwn
+exec ./nwn -dmc \"\$@\"
+EOF
+chmod +x $out/bin/dmclient
+
 # Install Desktop File
 mkdir -p $out/share/applications
 cat >$out/share/applications/nwn.desktop <<EOF
