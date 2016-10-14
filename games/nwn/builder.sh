@@ -5,22 +5,43 @@ export CC32="$CC -m32"
 export CC64="$CC"
 export CC="$CC32"
 
+# Create destination directory
+mkdir -p $out/nwn
+
 # Extract gog setup
 ln -s $gogSetup setup.exe
 ln -s $gogData1 setup-1.bin
 ln -s $gogData2 setup-2.bin
 innoextract -e -m setup.exe
+mv app/* $out/nwn
 
 # Extract Game Icons
 mkdir icons
-icotool -x -p 0 app/gfw_high.ico -o icons
+icotool -x -p 0 $out/nwn/gfw_high.ico -o icons
+rm $out/nwn/gfw_high.ico
 
 # Extract Kingmaker Files
 unzip $gogmods
 7z x KingmakerSetup.exe -xr0\!*PLUGINSDIR* -xr\!*.exe -xr\!*.dat -okingmakertmp
+cp -r kingmakertmp/\$0/* $out/nwn
+rm -rf kingmakertmp
 
-# Create destination directory
-mkdir -p $out/nwn
+# Extract Game Clients
+tar -zxvf $clientgold -C $out/nwn
+tar -zxvf $clienthotu -C $out/nwn
+
+# Extract Latest Patch
+tar -zxvf $clientpatch -C $out/nwn
+
+# Remove Unneeded Files & Directories
+rm -r \
+  $out/nwn/SDL-* \
+  $out/nwn/ereg \
+  $out/nwn/utils \
+  $out/nwn/lib \
+  $out/nwn/nwn \
+  $out/nwn/dmclient
+find $out \( -name \*.dll -o -name \*.exe \) -delete
 
 # Compile nw*
 nwcompile() {
@@ -53,35 +74,12 @@ nwcompile nwuser
 nwcompile nwmouse "sed -i 's|linux/user.h|sys/user.h|' nwmouse/nwmouse_cookie.c"
 nwcompile nwlogger "sed -i 's|linux/user.h|sys/user.h|' nwlogger/nwlogger_cookie.c"
 
-# Move game files to directory
-cp -r app/* $out/nwn
-
-# Extract Game Clients
-tar -zxvf $clientgold -C $out/nwn
-tar -zxvf $clienthotu -C $out/nwn
-
-# Install Kingmaker Files
-cp -r kingmakertmp/\$0/* $out/nwn
-
-# Extract Latest Patch
-tar -zxvf $clientpatch -C $out/nwn
-
 # Check the Installation
 pushd $out/nwn
 patchShebangs fixinstall
 ./fixinstall
+rm fixinstall
 popd
-
-# Remove Unneeded Files & Directories
-rm -r \
-  $out/nwn/SDL-* \
-  $out/nwn/ereg \
-  $out/nwn/utils \
-  $out/nwn/lib \
-  $out/nwn/fixinstall \
-  $out/nwn/nwn \
-  $out/nwn/dmclient
-find $out \( -name \*.dll -o -name \*.exe \) -delete
 
 # Install nwmovies Perl script
 install -D -m755 nwmovies/nwmovies.pl $out/nwn/nwmovies.pl
@@ -102,9 +100,6 @@ install -D -m755 nwmouse/nwmouse/libdis/libdisasm.so $out/nwn/nwmouse/libdis/lib
 
 # Install libdis binaries for nwlogger
 install -D -m755 nwlogger/nwlogger/libdis/libdisasm.so $out/nwn/nwlogger/libdis/libdisasm.so
-
-# Copy the original license file
-cp app/nwncdkey.ini $out/nwn/nwncdkey.ini
 
 # Install Cursors
 mkdir -p $out/nwn/nwmouse/cursors/
