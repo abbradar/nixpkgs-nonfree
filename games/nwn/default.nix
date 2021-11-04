@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchgit, requireFile
+{ stdenv, lib, fetchurl, fetchgit, requireFile
 , perl, innoextract, unzip, p7zip, icoutils
 , libX11, libXcursor, libelf, SDL, SDL_gfx, mesa_glu
 , binkplayer
@@ -77,13 +77,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libX11 libXcursor libelf SDL ];
 
-  deps = stdenv.lib.makeLibraryPath (buildInputs ++ [ mesa_glu SDL_gfx ]);
+  deps = lib.makeLibraryPath (buildInputs ++ [ mesa_glu SDL_gfx ]);
 
   launcher = ./launcher.sh;
 
   builder = ./builder.sh;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Neverwinter Nights, RPG from Bioware. GOG version";
     homepage = "http://www.gog.com/game/neverwinter_nights_diamond_edition";
     license = licenses.unfree;

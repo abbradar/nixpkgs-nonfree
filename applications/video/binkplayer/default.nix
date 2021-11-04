@@ -1,7 +1,7 @@
-{ stdenv, requireFile, p7zip, SDL, openalSoft }:
+{ stdenv, lib, requireFile, p7zip, SDL, openalSoft }:
 
 let
-  deps = stdenv.lib.makeLibraryPath [ SDL openalSoft ];
+  deps = lib.makeLibraryPath [ SDL openalSoft ];
 
 in stdenv.mkDerivation {
   name = "BinkPlayer";
@@ -25,7 +25,7 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ p7zip ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Play Bink files (or compiled Bink EXE files) from the command line";
     homepage = "http://www.radgametools.com/bnkmain.htm";
     license = licenses.unfree;

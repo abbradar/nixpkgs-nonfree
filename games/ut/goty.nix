@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     cp ut.xpm $out
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A first-person shooter video game developed by Epic Games and Digital Extreme";
     license = licenses.unfree;
     maintainers = with maintainers; [ abbradar ];

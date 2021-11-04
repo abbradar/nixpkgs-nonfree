@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pkgconfig
+{ stdenv, lib, fetchurl, pkgconfig
 , libX11, libXext, libXt, alsaLib, mesa_noglu, mesa_glu
 }:
 
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-oss" "--disable-video-fbcon" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A cross-platform multimedia library";
     homepage = "http://www.libsdl.org/";
     maintainers = with maintainers; [ abbradar ];

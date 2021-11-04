@@ -1,4 +1,4 @@
-{ stdenv, requireFile, innoextract }:
+{ stdenv, lib, requireFile, innoextract }:
 
 stdenv.mkDerivation rec {
   name = "ut2004-gog-${version}";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ innoextract ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A first-person shooter video game developed by Epic Games and Digital Extreme -- GOG version";
     homepage = "http://www.unrealtournament2004.com";
     license = licenses.unfree;

@@ -45,7 +45,7 @@ in stdenv.mkDerivation rec {
     '') srcs}
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A first-person shooter video game developed by Epic Games and Digital Extreme";
     homepage = "http://www.unrealtournament2004.com";
     license = licenses.unfree;

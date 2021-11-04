@@ -1,4 +1,4 @@
-{ stdenv, requireFile, innoextract }:
+{ stdenv, lib, requireFile, innoextract }:
 
 stdenv.mkDerivation rec {
   name = "quake3-gog-${version}";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ innoextract ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.unfree;
     maintainers = with maintainers; [ abbradar ];
     platforms = platforms.all;
